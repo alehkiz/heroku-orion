@@ -17,5 +17,5 @@ def before_request():
 def index():
 	cur = g.db_conn.cursor()
 	cur.execute("SELECT * FROM country;")
-	return render_template('index.html', countries= cur.fetcheall())
+	return render_template('index.html', countries= cur.fetchall())
 	
