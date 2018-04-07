@@ -1,6 +1,6 @@
-from flask import Flask, render_template
 import os
 from flask import Flask, render_template, g
+import psycog2
 
 app  = Flask(__name__)
 
