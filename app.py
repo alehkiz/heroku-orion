@@ -19,5 +19,3 @@ def index():
 	cur.execute("SELECT * FROM country;")
 	return render_template('index.html', countries= cur.fetcheall())
 	
-if __name__ == '__main__':
-	app.run()
