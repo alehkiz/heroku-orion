@@ -1,12 +1,19 @@
-from flask import Flask
+from flask import Flask, render_template
+import requests
+import json
+import os
 
-app = Flask(__name__)
+
+app  = Flask(__name__)
+
 
 @app.route('/')
-
 def index():
-    return 'teste'
+	r = requests.get('http://api.icndb.com/jokes/random')
+	data  = json.loads(r.text)
+	joke  =  data['value']['joke']
+	return render_template('index.html' , joke = joke)
 
 
-if __name__ == "__main__":
-	app.run()
+
+app.run(debug=True)
