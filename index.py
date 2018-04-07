@@ -1,19 +1,20 @@
 from flask import Flask, render_template
-import requests
-import json
 import os
-
+from flask import Flask, render_template, g
 
 app  = Flask(__name__)
 
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'XYZ')
 
+def connect_db():
+	return psycopg2.connect(os.environ.get('DATABASE_URL'))
+	
+@app.before_request
+def before_request():
+	g.db_conn = connect_db()
+	
 @app.route('/')
 def index():
-	r = requests.get('http://api.icndb.com/jokes/random')
-	data  = json.loads(r.text)
-	joke  =  data['value']['joke']
-	return render_template('index.html' , joke = joke)
-
-
-
-app.run(debug=True)
+	cur = g.db_conn.cursor()
+	cur.execute("SELECT * FROM country;")
+	return render_template('index.html', countries= cur.fetcheall())
