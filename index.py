@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, g
-import psycog2
+import psycopg2
 
 app  = Flask(__name__)
 
@@ -18,3 +18,6 @@ def index():
 	cur = g.db_conn.cursor()
 	cur.execute("SELECT * FROM country;")
 	return render_template('index.html', countries= cur.fetcheall())
+	
+if __name__ == '__main__':
+	app.run()
