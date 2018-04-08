@@ -19,3 +19,6 @@ def index():
 	cur.execute("SELECT * FROM country;")
 	return render_template('index.html', countries= cur.fetchall())
 	
+@app.route('/')
+def home():
+	return 'teste'
